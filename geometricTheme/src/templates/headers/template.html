@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="[%url_info name:'meta_keywords'/%]" />
+    <meta name="description" content="[%url_info name:'meta_description'/%]" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
+    <meta property="og:image" content="[%if [@config:current_page_type@] eq 'product'%][@config:homeurl@][%asset_url type:'product' id:'[@SKU@]' thumb:'full'/%][%ELSEIF [@config:current_page_type@] eq 'content'%][@config:homeurl@][%ASSET_url type:'content' id:'[@content_id@]' default:'/assets/website_logo.png'%][%/ASSET_url%][%ELSE%][@config:homeurl@]/assets/website_logo.png[%/if%]" />
+    <meta property="og:title" content="[%url_info name:'page_title'/%]" />
+    <meta property="og:site_name" content="[@config:website_name@]" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="[@config:canonical_url@]" />
+    <meta property="og:description" content="[%url_info name:'meta_description'/%]" /> [@config:GOOGLE_VERIFICATION_CODE@]
+    <title>[%url_info name:'page_title'/%]</title>
+    <link rel="canonical" href="[@config:canonical_url@]" />
+    <link rel="shortcut icon" href="/assets/favicon_logo.png?[@config:neto_css_version@]" />
+    <link rel="stylesheet" type="text/css" href="[%ntheme_asset%]css/vendors/slick.css[%end ntheme_asset%]" />
+    <link rel="stylesheet" type="text/css" href="[%ntheme_asset%]css/vendors/slick-theme.css[%end ntheme_asset%]" />
+    <link class="theme-selector" rel="stylesheet" type="text/css" href="[%ntheme_asset%]css/app.css[%/ntheme_asset%]" media="all" />
+    <link rel="stylesheet" type="text/css" href="[%ntheme_asset%]css/style.css[%/ntheme_asset%]" media="all" />
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300|Source+Sans+Pro:300" rel="stylesheet">
+    [%cdn_asset html:'1' type:'css' domain:'maxcdn.bootstrapcdn.com' library:'font-awesome' version:'4.7.0'%]css/font-awesome.min.css[%/cdn_asset%] [%cdn_asset html:'1' type:'css' library:'jquery_ui' version:'1.11.1'%]css/custom-theme/jquery-ui-1.8.18.custom.css[%/cdn_asset%] [%cdn_asset html:'1' type:'css' library:'fancybox' version:'2.1.5'%]jquery.fancybox.css[%/cdn_asset%]
+    <!--[if lte IE 8]>
+	[%cdn_asset html:'1' type:'js' library:'html5shiv' version:'3.7.0'%]html5shiv.js[%/cdn_asset%]
+	[%cdn_asset html:'1' type:'js' library:'respond.js' version:'1.3.0'%]respond.min.js[%/cdn_asset%]
+<![endif]-->
+    [%tracking_code type:'Declaration'/%]
+</head>
+
+
+<body id="n_[@config:current_page_type@]" class="n_[@CONFIG:TEMPLATELANG@]">
+
+<!-- Utility buttons in bottom right hand corner -->
+
+<div id="background-overlay"></div>      
+      
+<div id="slideoutSideNav" class="slideoutSideNav">
+    <div class="sidebar-container">
+            <ul class="nav navbar-nav closed-menu" id="mob-menu">
+                <h2 class="wishlist-label tertiary-background">Categories</h2> 
+                    <div class="mob-menu-items">
+                        [%cache type:'menu' id:'category-menu-mobile'%] [%content_menu type:'category' sortby:'sortorder' show_empty:'1'%] [%param *level_1%]
+                        <li class="mobile-first-lvl">
+
+                            <a [%IF [@next_level@] %]data-toggle="collapse" data-parent="#mob-menu" href="#mob-menu-[@id@]" class="collapsed mob-drop neutral-dark" [%ELSE%]href="[@url@]" [%/IF%]>
+                                [@name@] [%if [@next_level@]%]<i class="fa fa-angle-down primary-color" aria-hidden="true"></i>[%/if%]
+                            </a>
+                            [%if [@next_level@]%]
+                            <ul id="mob-menu-[@id@]" class="panel-collapse collapse collapse-menu list-unstyled">
+                                [@next_level@]
+                            </ul>
+                            [%/if%]
+                        </li>
+                        [%/param%] [%param *level_2%]
+                        <li class="mobile-second-lvl">
+                            <a [%IF [@next_level@] %]data-toggle="collapse" data-parent="#mob-menu" href="#mob-menu-[@id@]" class="collapsed mob-drop neutral-dark" [%ELSE%]href="[@url@]" [%/IF%]>
+                                            [@name@] [%if [@next_level@]%]<i class="fa fa-angle-down primary-color" aria-hidden="true"></i>[%/if%]
+                                        </a> [%if [@next_level@]%]
+                            <ul id="mob-menu-[@id@]" class="panel-collapse collapse collapse-menu list-unstyled">
+                                [@next_level@]
+                            </ul>
+                            [%/if%]
+                        </li>
+                        [%/param%] [%param *level_3%]
+                        <li class="mobile-third-lvl">
+                            <a href="[@url@]" class="neutral-dark">[@name@]</a>
+                        </li>
+                        [%/param%] [%/content_menu%] [%/ cache%]
+                    </div>
+            </ul>
+    </div>
+
+    <div class="utility-btns">
+        <div class="open-sidenav">
+            <!-- cart icon -->     
+            <a href="[%url page:'checkout' type:'cart'/%]"> 
+                <button class="cart-box text-center transparent-btn">
+                        <div class="header-cart btn-group">
+                                <i class="fa fa-shopping-cart center-absolute white"></i>
+                            <div class="item-counter secondary-background white text-center">
+                                <div class="item-counter-inner center-absolute" rel="a2c_item_count">[%format type:'number' dp:'0'%][%CART id:'total_items'%][%/CART%][%/format%]</div>
+                            </div> 
+                        </div>
+                </button>
+            </a>
+            <!-- heart icon -->
+                    <button class="love-box primary-fab  wishlist-love-container text-center transparent-btn">
+                        <a href="/_myacct/wishlist">
+                            <i class="fa fa-heart wishlist-love center-absolute white" id="love-icon-open"></i>
+                        </a>
+                    </button>
+            <!-- menu icon -->
+                    <button class="love-box primary-fab sidenav-menu-container text-center transparent-btn">
+                            <i class="fa fa-bars wishlist-menu center-absolute secondary-color" id="menu-icon-open"></i>
+                    </button>
+            <!-- Close btn -->
+                    <button class="love-box close-fab text-center transparent-btn">
+                            <i class="fa fa-close center-absolute"></i>
+                    </button>
+        </div>
+
+            <div class="closed-sidenav ">
+                <!-- Cart icon -->
+                <a href="[%url page:'checkout' type:'cart'/%]" id="cartcontentsheader">
+                <button class="cart-box primary-background text-center hidden-xs">
+                    <div id="header-cart" class="header-cart btn-group">
+                        
+                            <i class="fa fa-shopping-cart center-absolute"></i>
+                        <ul class="dropdown-menu">
+                            <li class="box" id="neto-dropdown">
+                                <div class="body padding" id="cartcontents"></div>
+                                <div class="footer"></div>
+                            </li>
+                        </ul>
+                        <div class="item-counter secondary-background white text-center">
+                            <div class="item-counter-inner center-absolute" rel="a2c_item_count">[%format type:'number' dp:'0'%][%CART id:'total_items'%][%/CART%][%/format%]</div>
+                        </div> 
+                    </div>
+                </button>
+            </a>
+                <!-- Menu Icon (mobile) -->
+                <button class="love-box primary-fab white-background sidenav-menu-container primary-border text-center hidden-sm hidden-md hidden-lg">
+                        <i class="fa fa-bars wishlist-menu primary-color center-absolute "></i>
+                </button>
+            </div>
+    </div>
+</div>
+
+<div class="container-fluid top-bar neutral-light-background">
+        <div class="container wide-container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-lg-4">
+                    <ul class="list-inline top-menu-items-left">
+                        <li>
+                            <ul class="list-inline">
+                                [%menu id:'top-bar-left'%] [%param *level_1%]
+                                <li class="top-menu-link [%if [@next_level@]%]dropdown dropdown-toggle[%/if%]"> <a href="[@url@]" [%if [@next_level@]%]class="dropdown-toggle" [%/if%]>[@name@] [%if [@next_level@]%]<span class="caret white"></span>[%/if%]</a> [%if [@next_level@]%]
+                                    <ul class="dropdown-menu">
+                                        [@next_level@]
+                                    </ul>
+                                    [%/if%]
+                                </li>
+                                [%/param%] [%param *level_2%]
+                                <li class="top-menu-link [%if [@next_level@]%]dropdown dropdown-toggle[%/if%]"> <a href="[@url@]" class="nuhover dropdown-toggle">[@name@]</a> [%if [@next_level@]%]
+                                    <ul class="dropdown-menu dropdown-menu-horizontal">
+                                        [@next_level@]
+                                    </ul>
+                                    [%/if%]
+                                </li>
+                                [%/param%] [%param *level_3%]
+                                <li class="top-menu-link [%if [@next_level@]%]dropdown dropdown-toggle[%/if%]"> <a href="[@url@]">[@name@]</a> [%if [@next_level@]%]
+                                    <ul class="dropdown-menu dropdown-menu-horizontal">
+                                        [@next_level@]
+                                    </ul>
+                                    [%/if%]
+                                </li>
+                                [%/param%] [%/menu%]
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="hidden-xs hidden-sm hidden-md visible-lg col-lg-4">
+                    <ul class="list-inline top-links text-center">
+                        <li>
+                            <ul class="list-inline">
+                                [%if [@config:facebook_account_id@]%]
+                                <li><a href="[@config:facebook_account_id@]" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                [%/if%] [%if [@config:pinterest_account_id@]%]
+                                <li><a href="[@config:pinterest_account_id@]" target="_blank"><i class="fa fa-pinterest-p"></i></a></li>
+                                [%/if%] [%if [@config:twitter_account_id@]%]
+                                <li><a href="[@config:twitter_account_id@]" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                                [%/if%] [%if [@config:googleplus_account_id@]%]
+                                <li><a href="[@config:googleplus_account_id@]" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                                [%/if%] [%if [@config:youtube_account_id@]%]
+                                <li><a href="[@config:youtube_account_id@]" target="_blank"><i class="fa fa-youtube-play"></i></a></li>
+                                [%/if%] [%if [@config:instagram_account_id@]%]
+                                <li><a href="[@config:instagram_account_id@]" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                                [%/if%] [%if [@config:tumblr_account_id@]%]
+                                <li><a href="[@config:tumblr_account_id@]" target="_blank"><i class="fa fa-tumblr"></i></a></li>
+                                [%/if%] [%if [@config:linkedin_account_id@]%]
+                                <li><a href="[@config:linkedin_account_id@]" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                                [%/if%]
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="hidden-xs col-xs-12 col-sm-6 col-lg-4">
+                    <ul class="list-inline top-menu-items-right">
+                        <li>
+                            <ul class="list-inline">
+                                [%menu id:'top-bar-right'%] [%param *level_1%]
+                                <li class="top-menu-link [%if [@next_level@]%]dropdown dropdown-toggle[%/if%]"> <a href="[@url@]" [%if [@next_level@]%]class="dropdown-toggle" [%/if%]>[@name@] [%if [@next_level@]%]<span class="caret"></span>[%/if%]</a> [%if [@next_level@]%]
+                                    <ul class="dropdown-menu">
+                                        [@next_level@]
+                                    </ul>
+                                    [%/if%]
+                                </li>
+                                [%/param%] [%param *level_2%]
+                                <li class="top-menu-link [%if [@next_level@]%]dropdown dropdown-toggle[%/if%]"> <a href="[@url@]" class="nuhover dropdown-toggle">[@name@]</a> [%if [@next_level@]%]
+                                    <ul class="dropdown-menu dropdown-menu-horizontal">
+                                        [@next_level@]
+                                    </ul>
+                                    [%/if%]
+                                </li>
+                                [%/param%] [%param *level_3%]
+                                <li class="top-menu-link [%if [@next_level@]%]dropdown dropdown-toggle[%/if%]"> <a href="[@url@]">[@name@]</a> [%if [@next_level@]%]
+                                    <ul class="dropdown-menu dropdown-menu-horizontal">
+                                        [@next_level@]
+                                    </ul>
+                                    [%/if%]
+                                </li>
+                                [%/param%] [%/menu%]
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div class="container wide-container wrapper-header">
+        <div class="top-row">
+            <div class="col-xs-6 col-sm-4 search-bar-col hidden-xs">
+                <form name="productsearch" class="search-field hidden-xs center-absolute" method="get" action="/">
+                    <input type="hidden" name="rf" value="kw" />
+                    <div class="search-bar neutral-mid-border inactive">
+                        <input class="ajax_search header-ajax-search" placeholder="Search" value="[%nohtml%][%filter ID:'keywords'%][%/filter%][%/nohtml%]" id="name_search" autocomplete="off" name="kw" type="text" />
+
+                        <button class="btn search primary-border primary-color white-background primary-background-hover white-hover center-absolute"><i class="fa fa-search"></i></button>
+                    
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-xs-6 col-sm-4 wrapper-logo text-center">
+                <div class="header-logo center-absolute">
+                <a href="[@config:homeurl@]" title="[@config:company_name@]">
+                    <img class="logo" src="[@config:imageurl@]/website_logo.png?[@config:neto_css_version@]" alt="[@config:company_name@]" />
+                </a>
+                </div>
+            </div>
+            
+            <div class="col-xs-6 col-sm-4 account-cart-col">
+                <div class="center-absolute text-right">
+                    <a href="[%url page:'account'/%]">
+                        <button class="top-btn-account primary-border primary-color white-background primary-background-hover white-hover hidden-xs"><i class="fa fa-user center-absolute"></i><span class="btn-account-label neutral-dark hidden-xs">Account</span></button>
+                    </a>
+                    <a href="[%url page:'checkout' type:'cart'/%]">
+                        <button class="top-btn-cart primary-background white hidden-xs"><i class="fa fa-shopping-cart center-absolute"></i>
+                            <div class="item-counter secondary-background white text-center">
+                                <div class="item-counter-inner center-absolute" rel="a2c_item_count">[%format type:'number' dp:'0'%][%CART id:'total_items'%][%/CART%][%/format%]</div>
+                            </div> 
+                            <span class="btn-cart-label neutral-dark hidden-xs">Cart</span></button>
+                    </a>
+                    <div class="mobile-buttons visible-xs">
+                        <button class="top-btn-search primary-background white" data-toggle="collapse" data-target="#mobile-search"><i class="fa fa-search center-absolute" ></i></button>
+                        <a href="[%url page:'account'/%]">
+                            <button class="top-btn-account primary-background white"><i class="fa fa-user center-absolute"></i></button>
+                        </a>
+                        <a href="[%url page:'checkout' type:'cart'/%]">
+                            <button class="top-btn-cart primary-background white"><i class="fa fa-shopping-cart center-absolute"></i></button>
+                        </a>
+                    </div>
+                </div>
+            </div> 
+        </div>
+</div>
+  
+    <div id="mobile-search" class="row container collapse hidden-sm hidden-md hidden-lg">
+        <div class="col-xs-12 mobile-search-bar">
+            <form name="productsearch" class="search-field" method="get" action="/">
+                <input type="hidden" name="rf" value="kw" />
+                <input class="ajax_search header-ajax-search" placeholder="What are you searching for?" value="[%nohtml%][%filter ID:'keywords'%][%/filter%][%/nohtml%]" id="name_search_mobile" autocomplete="off" name="kw" type="text" />
+                <button type="submit" value="search" class="inner-search"><i class="fa fa-search primary-color"></i></button>
+            </form>
+        </div>   
+    </div>
+<div class="sticky-nav-wrapper">
+    <nav class="container-fluid header-divider nav navbar hidden-xs">
+        <div class="container-fluid menu-container">
+            <div class="row menu-row">
+                <div class="hidden-xs col-sm-12 no-padding">
+                    <ul class="category-menu">
+                        [%content_menu type:'category' sortby:'sortorder' show_empty:'1'%] [%param *level_1%]
+                        <li class="dropdown first-level-li secondary-background-hover white-hover"><a href="[@url@]" class="neutral-dark secondary-background-hover">[@name@] </a>[%if [@next_level@]%]<i class="fa fa-angle-down neutral-dark down-caret-menu"></i>[%/if%] [%if [@next_level@]%]
+                            <ul class="dropdown-menu arrow_box">
+                                [@next_level@]
+                            </ul>
+                            [%/if%] [%/param%] [%param *level_2%]
+
+                            <li [%if [@next_level@]%]class="dropdown-submenu" [%/if%]><a href="[@url@]" class="neutral-dark primary-color-hover">[@name@]</a>[%if [@next_level@]%]<i class="fa fa-angle-down neutral-dark sub-category-toggle primary-color-hover" data-target=".[@id@]-menu" data-toggle="collapse"></i>[%/if%] [%if [@next_level@]%]
+                                <div class="[@id@]-menu collapse">
+                                    <ul class="second-lvl-menu">
+                                        [@next_level@]
+                                    </ul>
+                                </div>
+
+                                [%/if%] [%/param%] [%param *level_3%]
+                                <li><a href="[@url@]" class="neutral-dark primary-color-hover">[@name@]</a></li>
+                                [%/param%] [%/content_menu%]
+                    </ul>
+                </div>
+            </div>
+    </nav>
+</div>
+    <div class="container main-container" role="main">

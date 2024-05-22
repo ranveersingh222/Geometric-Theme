@@ -1,0 +1,36 @@
+<div class="col-xs-12 col-sm-6 col-md-4">
+	<div itemtype="http://schema.org/Article">
+		<div class="blog-wrapper">
+			<a href="[@url@]">
+		<span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+			<meta itemprop="url" content="[@config:homeurl@]"/>
+			<span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+				<meta itemprop="url" content="[@config:homeurl@][@config:imageurl@]/website_logo.png">
+			</span>
+			<meta itemprop="name" content="[@config:company_name@]"/>
+		</span>
+		<div class="blog-img relative" style="background: url([%asset_url type:'content' id:'[@content_id@]'%][%param default%][%cdn_asset html:'0' library:'images'%]default_product.gif[%/cdn_asset%][%end param%][%/asset_url%]) 50% 50% no-repeat">         
+			[%IF [@date_posted@] != 0000-00-00 00:00:00%]
+				<span class="blog-date-wrapper secondary-background">
+				<meta itemprop="datePublished" content="[%format type:'date' format:'#Y-#M-#d'%][@date_posted@][%/format%]"/>
+				<p class="blog-date"><i class="fa fa-calendar-o"></i>[%FORMAT type:'date'%][@date_posted@][%END FORMAT%]</p>
+				</span>
+			[%END IF%]
+		</div>
+		<div class="blog-thumb-text-wrapper">
+			<h4 itemprop="headline" content="[@content_name@]" class="uppercase">
+				<span class="bold blog-heading">[@content_name@]</span>
+			</h4>
+			<p class="text-muted">
+				[%IF [@content_author@]%]
+				<span itemprop="author" itemscope itemtype="https://schema.org/Person">
+					<p class="blog-author">Author: <span itemprop="name">[@content_author@]</span></p>
+				</span>
+				[%END IF%]
+				
+			</p>
+		</div>
+		</a>
+		</div>
+	</div>
+</div>
