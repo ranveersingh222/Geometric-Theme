@@ -8,7 +8,7 @@ Geometric provides several advertising areas on the homepage and is the first Ne
 
 Full Feature List:
 
-- Fixed category menu in header for ease of navigation.
+- Fixed category menu in header for ease of navigation;
 - Homepage Carousel;
 - Homepage advert with eye-catching parallax background effect;
 - Brands carousel;
